@@ -4,10 +4,11 @@ import { useDecisionTree } from './hooks/useDecisionTree';
 import { QuestionCard } from './components/QuestionCard';
 import { CityResult } from './components/CityResult';
 import { TreeView } from './components/TreeView';
+import { FlowChart } from './components/FlowChart';
 
 function App() {
   const { state, navigateToNode, restart, getCurrentNode } = useDecisionTree();
-  const [showTreeView, setShowTreeView] = useState(true);
+  const [currentView, setCurrentView] = useState<'flowchart' | 'tree' | 'card'>('flowchart');
   
   const currentNode = getCurrentNode();
 
@@ -34,9 +35,19 @@ function App() {
       <div className="relative z-10 flex justify-center mb-4">
         <div className="bg-white rounded-lg p-1 shadow-md">
           <button
-            onClick={() => setShowTreeView(true)}
+            onClick={() => setCurrentView('flowchart')}
             className={`px-4 py-2 rounded-md transition-all ${
-              showTreeView 
+              currentView === 'flowchart'
+                ? 'bg-blue-500 text-white shadow-sm' 
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            Flowchart
+          </button>
+          <button
+            onClick={() => setCurrentView('tree')}
+            className={`px-4 py-2 rounded-md transition-all ${
+              currentView === 'tree'
                 ? 'bg-blue-500 text-white shadow-sm' 
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
@@ -44,9 +55,9 @@ function App() {
             Tree View
           </button>
           <button
-            onClick={() => setShowTreeView(false)}
+            onClick={() => setCurrentView('card')}
             className={`px-4 py-2 rounded-md transition-all ${
-              !showTreeView 
+              currentView === 'card'
                 ? 'bg-blue-500 text-white shadow-sm' 
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
@@ -58,7 +69,16 @@ function App() {
 
       {/* Main Content */}
       <main className="relative">
-        {showTreeView ? (
+        {currentView === 'flowchart' ? (
+          <div className="h-[80vh]">
+            <FlowChart
+              currentNodeId={state.currentNodeId}
+              path={state.path}
+              onNavigate={navigateToNode}
+              onRestart={restart}
+            />
+          </div>
+        ) : currentView === 'tree' ? (
           <div className="h-[80vh]">
             <TreeView
               currentNodeId={state.currentNodeId}
