@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { DecisionNode } from '../types';
-import { decisionTree } from '../data/cities';
+import { decisionTree } from '../data/cities'; // Assuming this path is correct
 import { ArrowRight, MapPin, RotateCcw } from 'lucide-react';
 
 interface FlowChartProps {
@@ -36,23 +36,29 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   const RESULT_HEIGHT = 120;
   const HORIZONTAL_SPACING = 700; // Increased from 350
   const VERTICAL_SPACING = 190;   // Increased from 120
-  const OPTION_TO_QUESTION_GAP = 120; // New gap between options and next questions
-  const option_vertical_padding = 30; 
-  
+  const OPTION_TO_QUESTION_GAP = 120; // Gap between question and options
+  const OPTION_VERTICAL_PADDING = 30; // Padding between individual options
+  const OVERALL_CANVAS_PADDING = 250; // Padding around the entire flowchart canvas
+
   // Calculate positions for all nodes in the flowchart
   const calculateLayout = (): Record<string, NodePosition> => {
-    const positions: Record<string, NodePosition> = {};
+    // Use a temporary map to store positions before adjustment
+    const tempPositions: Record<string, NodePosition> = {};
     const processedNodes = new Set<string>();
-    
-    // Start with the root question
-    const startY = 1220;
-    positions['start'] = { x: 50, y: startY, width: QUESTION_WIDTH, height: QUESTION_HEIGHT };
-    
+
+    // Start with the root question, ensuring it's offset by the canvas padding
+    const initialStartX = OVERALL_CANVAS_PADDING + 50;
+    const initialStartY = OVERALL_CANVAS_PADDING + 50;
+    tempPositions['start'] = { x: initialStartX, y: initialStartY, width: QUESTION_WIDTH, height: QUESTION_HEIGHT };
+
     // Process nodes level by level
     const processLevel = (nodeIds: string[], level: number) => {
       const nextLevelNodes: string[] = [];
-      let currentY = startY - ((nodeIds.length - 1) * VERTICAL_SPACING) / 2;
-      
+      // currentY here refers to the vertical alignment of the *current level's* primary nodes
+      // For more complex trees, a more sophisticated vertical placement might be needed,
+      // but this basic approach works for sequential flows.
+      let currentYForLevel = initialStartY; 
+
       nodeIds.forEach((nodeId, index) => {
         if (processedNodes.has(nodeId)) return;
         
@@ -62,10 +68,11 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         processedNodes.add(nodeId);
         
         // Position the current node if not already positioned
-        if (!positions[nodeId]) {
-          positions[nodeId] = {
-            x: 50 + (level * HORIZONTAL_SPACING),
-            y: currentY + (index * VERTICAL_SPACING),
+        if (!tempPositions[nodeId]) {
+          tempPositions[nodeId] = {
+            x: initialStartX + (level * HORIZONTAL_SPACING),
+            // Distribute nodes vertically within their level if multiple entry points at a level
+            y: currentYForLevel + (index * VERTICAL_SPACING), // Simple linear arrangement
             width: node.type === 'result' ? RESULT_WIDTH : QUESTION_WIDTH,
             height: node.type === 'result' ? RESULT_HEIGHT : QUESTION_HEIGHT
           };
@@ -73,23 +80,30 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         
         // Position options for question nodes
         if (node.type === 'question' && node.options) {
-          const questionPos = positions[nodeId];
-          const optionStartY = questionPos.y - ((node.options.length - 1) * (OPTION_HEIGHT + 30)) / 2;
+          const questionPos = tempPositions[nodeId];
+          
+          // Calculate total height needed for all options including padding between them
+          const totalOptionsHeight = node.options.length * OPTION_HEIGHT +
+                                     (node.options.length - 1) * OPTION_VERTICAL_PADDING;
+          
+          // Calculate the starting Y for the block of options to center them vertically relative to the question
+          const optionStartY = questionPos.y + (QUESTION_HEIGHT / 2) - (totalOptionsHeight / 2);
           
           node.options.forEach((option, optionIndex) => {
-            const optionY = optionStartY + (optionIndex * (OPTION_HEIGHT + 30));
-            const optionX = questionPos.x + QUESTION_WIDTH + 80; // Increased gap
+            // Calculate individual option's Y position
+            const optionY = optionStartY + (optionIndex * (OPTION_HEIGHT + OPTION_VERTICAL_PADDING));
+            const optionX = questionPos.x + QUESTION_WIDTH + OPTION_TO_QUESTION_GAP;
             
             // Create a unique ID for the option
             const optionId = `${nodeId}-option-${optionIndex}`;
-            positions[optionId] = {
+            tempPositions[optionId] = {
               x: optionX,
               y: optionY,
               width: OPTION_WIDTH,
               height: OPTION_HEIGHT
             };
             
-            // Add the target node to next level
+            // Add the target node to next level if not already processed
             if (!processedNodes.has(option.nextId)) {
               nextLevelNodes.push(option.nextId);
             }
@@ -103,10 +117,31 @@ export const FlowChart: React.FC<FlowChartProps> = ({
       }
     };
     
+    // Start the layout process from the 'start' node (level 0)
     processLevel(['start'], 0);
-    return positions;
+
+    // --- Adjust all positions to ensure padding from top and left ---
+    // Find the minimum x and y coordinates among all temporarily calculated positions
+    const minX = Object.values(tempPositions).reduce((min, pos) => Math.min(min, pos.x), Infinity);
+    const minY = Object.values(tempPositions).reduce((min, pos) => Math.min(min, pos.y), Infinity);
+
+    // Create the final adjusted positions map
+    const adjustedPositions: Record<string, NodePosition> = {};
+    for (const nodeId in tempPositions) {
+      const pos = tempPositions[nodeId];
+      adjustedPositions[nodeId] = {
+        // Shift all nodes right by (minX - OVERALL_CANVAS_PADDING)
+        x: pos.x - minX + OVERALL_CANVAS_PADDING,
+        // Shift all nodes down by (minY - OVERALL_CANVAS_PADDING)
+        y: pos.y - minY + OVERALL_CANVAS_PADDING,
+        width: pos.width,
+        height: pos.height,
+      };
+    }
+    return adjustedPositions; // Return the adjusted positions
   };
 
+  // Calculate and store the adjusted positions for all nodes
   const positions = calculateLayout();
 
   // Auto-scroll to current node
@@ -114,6 +149,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
     const currentPos = positions[currentNodeId];
     if (currentPos && containerRef.current) {
       const container = containerRef.current;
+      // Calculate scroll position to center the current node
       const scrollX = Math.max(0, currentPos.x - container.clientWidth / 2);
       const scrollY = Math.max(0, currentPos.y - container.clientHeight / 2);
       
@@ -127,7 +163,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
 
   // Handle mouse events for panning
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button === 0) {
+    if (e.button === 0) { // Only for left mouse button
       setIsDragging(true);
       setDragStart({ x: e.clientX, y: e.clientY });
     }
@@ -138,9 +174,11 @@ export const FlowChart: React.FC<FlowChartProps> = ({
       const deltaX = dragStart.x - e.clientX;
       const deltaY = dragStart.y - e.clientY;
       
+      // Adjust scroll position
       containerRef.current.scrollLeft += deltaX;
       containerRef.current.scrollTop += deltaY;
       
+      // Update drag start for continuous dragging
       setDragStart({ x: e.clientX, y: e.clientY });
     }
   };
@@ -151,6 +189,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
 
   // Render question nodes
   const renderQuestionNode = (nodeId: string, node: DecisionNode) => {
+    // `positions` now holds the adjusted positions
     const pos = positions[nodeId];
     if (!pos) return null;
 
@@ -198,6 +237,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
 
     return node.options.map((option, index) => {
       const optionId = `${nodeId}-option-${index}`;
+      // `positions` now holds the adjusted positions
       const pos = positions[optionId];
       if (!pos) return null;
 
@@ -246,6 +286,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
           </button>
 
           {/* Arrow from option to next node */}
+          {/* Ensure `positions[option.nextId]` is passed, as `positions` is already the adjusted one */}
           {renderArrow(pos, positions[option.nextId], isSelected)}
         </div>
       );
@@ -254,6 +295,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
 
   // Render result nodes
   const renderResultNode = (nodeId: string, node: DecisionNode) => {
+    // `positions` now holds the adjusted positions
     const pos = positions[nodeId];
     if (!pos || !node.city) return null;
 
@@ -307,6 +349,8 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   const renderArrow = (fromPos: NodePosition | undefined, toPos: NodePosition | undefined, isActive: boolean) => {
     if (!fromPos || !toPos) return null;
 
+    // These coordinates are relative to the SVG's top-left corner
+    // The SVG itself is absolutely positioned to cover the area between nodes
     const startX = fromPos.x + fromPos.width;
     const startY = fromPos.y + fromPos.height / 2;
     const endX = toPos.x;
@@ -319,7 +363,8 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         key={`arrow-${startX}-${startY}-${endX}-${endY}`}
         className="absolute pointer-events-none"
         style={{
-          left: Math.min(startX, endX) - 10,
+          // Position the SVG container to span the area between fromPos and toPos
+          left: Math.min(startX, endX) - 10, // Add a small buffer for arrowheads
           top: Math.min(startY, endY) - 10,
           width: Math.abs(endX - startX) + 20,
           height: Math.abs(endY - startY) + 20
@@ -341,6 +386,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
           </marker>
         </defs>
         <path
+          // Path coordinates are relative to the SVG's viewport (0,0)
           d={`M ${startX - Math.min(startX, endX) + 10} ${startY - Math.min(startY, endY) + 10} 
               Q ${midX - Math.min(startX, endX) + 10} ${startY - Math.min(startY, endY) + 10} 
               ${endX - Math.min(startX, endX) + 10} ${endY - Math.min(startY, endY) + 10}`}
@@ -352,9 +398,11 @@ export const FlowChart: React.FC<FlowChartProps> = ({
       </svg>
     );
   };
-// Calculate total dimensions
-  const maxX = Object.values(positions).reduce((max, pos) => Math.max(max, pos.x + pos.width), 0) + 200; // Increased padding
-  const maxY = Object.values(positions).reduce((max, pos) => Math.max(max, pos.y + pos.height), 0) + 200; // Increased padding
+
+  // Calculate total dimensions for the inner scrollable content
+  // These are based on the adjusted positions, plus extra padding on the right/bottom
+  const totalContentWidth = Object.values(positions).reduce((max, pos) => Math.max(max, pos.x + pos.width), 0) + OVERALL_CANVAS_PADDING;
+  const totalContentHeight = Object.values(positions).reduce((max, pos) => Math.max(max, pos.y + pos.height), 0) + OVERALL_CANVAS_PADDING;
 
   return (
     <div className="h-full flex flex-col bg-gray-50">
@@ -376,7 +424,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         </div>
       </div>
 
-      {/* Flowchart Container */}
+      {/* Flowchart Container (scrollable area) */}
       <div
         ref={containerRef}
         className={`flex-1 overflow-auto ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -386,10 +434,12 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         onMouseLeave={handleMouseUp}
       >
         <div
-          className="relative"
+          className="relative" // This div holds all the absolutely positioned nodes and arrows
           style={{
-            width: maxX,
-            height: maxY,
+            // Set its dimensions to encompass all nodes plus padding
+            width: totalContentWidth,
+            height: totalContentHeight,
+            // Ensure it's at least as big as the viewport to enable scrolling if content is small
             minWidth: '100%',
             minHeight: '100%'
           }}
@@ -424,15 +474,14 @@ export const FlowChart: React.FC<FlowChartProps> = ({
           {/* Arrows from questions to options */}
           {Object.entries(decisionTree).map(([nodeId, node]) => {
             if (node.type === 'question' && node.options) {
-              // CHANGE THIS LINE: Use adjustedPositions
-              const questionPos = adjustedPositions[nodeId];
+              // `positions` already contains the adjusted values
+              const questionPos = positions[nodeId];
               return node.options.map((option, index) => {
                 const optionId = `${nodeId}-option-${index}`;
-                // CHANGE THIS LINE: Use adjustedPositions
-                const optionPos = adjustedPositions[optionId];
+                const optionPos = positions[optionId];
                 const isActive = path.includes(option.nextId);
-                // CHANGE THIS LINE: Pass adjustedPositions[option.nextId]
-                return renderArrow(questionPos, optionPos, isActive);
+                // `positions[option.nextId]` is the correctly adjusted position for the target node
+                return renderArrow(questionPos, positions[option.nextId], isActive);
               });
             }
             return null;
