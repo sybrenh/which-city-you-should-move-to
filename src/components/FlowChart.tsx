@@ -481,7 +481,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
                 const optionPos = positions[optionId];
                 const isActive = path.includes(option.nextId);
                 // `positions[option.nextId]` is the correctly adjusted position for the target node
-                return renderArrow(questionPos, positions[option.nextId], isActive);
+                return renderArrow(questionPos, optionPos, isActive);
               });
             }
             return null;
