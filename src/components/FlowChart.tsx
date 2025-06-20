@@ -37,7 +37,8 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   const HORIZONTAL_SPACING = 700; // Increased from 350
   const VERTICAL_SPACING = 190;   // Increased from 120
   const OPTION_TO_QUESTION_GAP = 120; // New gap between options and next questions
-
+  const option_vertical_padding = 30; 
+  
   // Calculate positions for all nodes in the flowchart
   const calculateLayout = (): Record<string, NodePosition> => {
     const positions: Record<string, NodePosition> = {};
@@ -423,11 +424,14 @@ export const FlowChart: React.FC<FlowChartProps> = ({
           {/* Arrows from questions to options */}
           {Object.entries(decisionTree).map(([nodeId, node]) => {
             if (node.type === 'question' && node.options) {
-              const questionPos = positions[nodeId];
+              // CHANGE THIS LINE: Use adjustedPositions
+              const questionPos = adjustedPositions[nodeId];
               return node.options.map((option, index) => {
                 const optionId = `${nodeId}-option-${index}`;
-                const optionPos = positions[optionId];
+                // CHANGE THIS LINE: Use adjustedPositions
+                const optionPos = adjustedPositions[optionId];
                 const isActive = path.includes(option.nextId);
+                // CHANGE THIS LINE: Pass adjustedPositions[option.nextId]
                 return renderArrow(questionPos, optionPos, isActive);
               });
             }
@@ -435,7 +439,6 @@ export const FlowChart: React.FC<FlowChartProps> = ({
           })}
         </div>
       </div>
-
       {/* Legend */}
       <div className="bg-white border-t border-gray-200 p-4 flex-shrink-0">
         <div className="flex flex-wrap items-center gap-6 text-sm">
