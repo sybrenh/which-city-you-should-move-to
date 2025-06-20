@@ -38,7 +38,7 @@ export const useDecisionTree = () => {
   }, [state.currentNodeId]);
 
   const getProgress = useCallback(() => {
-    const maxDepth = 3; // Based on our tree structure
+    const maxDepth = 4; // Updated based on new tree structure
     const currentDepth = state.path.length;
     return { current: currentDepth, total: maxDepth };
   }, [state.path.length]);
