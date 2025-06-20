@@ -44,7 +44,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
     const processedNodes = new Set<string>();
     
     // Start with the root question
-    const startY = 400;
+    const startY = 600;
     positions['start'] = { x: 50, y: startY, width: QUESTION_WIDTH, height: QUESTION_HEIGHT };
     
     // Process nodes level by level
