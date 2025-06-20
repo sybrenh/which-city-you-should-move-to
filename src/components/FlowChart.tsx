@@ -24,19 +24,19 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   onRestart
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [viewBox, setViewBox] = useState({ x: 0, y: 0, width: 1200, height: 800 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
-  // Layout configuration
-  const QUESTION_WIDTH = 280;
-  const QUESTION_HEIGHT = 80;
-  const OPTION_WIDTH = 200;
-  const OPTION_HEIGHT = 60;
-  const RESULT_WIDTH = 240;
-  const RESULT_HEIGHT = 100;
-  const HORIZONTAL_SPACING = 350;
-  const VERTICAL_SPACING = 120;
+  // Layout configuration with increased spacing
+  const QUESTION_WIDTH = 300;
+  const QUESTION_HEIGHT = 100;
+  const OPTION_WIDTH = 220;
+  const OPTION_HEIGHT = 70;
+  const RESULT_WIDTH = 280;
+  const RESULT_HEIGHT = 120;
+  const HORIZONTAL_SPACING = 450; // Increased from 350
+  const VERTICAL_SPACING = 140;   // Increased from 120
+  const OPTION_TO_QUESTION_GAP = 120; // New gap between options and next questions
 
   // Calculate positions for all nodes in the flowchart
   const calculateLayout = (): Record<string, NodePosition> => {
@@ -73,11 +73,11 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         // Position options for question nodes
         if (node.type === 'question' && node.options) {
           const questionPos = positions[nodeId];
-          const optionStartY = questionPos.y - ((node.options.length - 1) * (OPTION_HEIGHT + 20)) / 2;
+          const optionStartY = questionPos.y - ((node.options.length - 1) * (OPTION_HEIGHT + 30)) / 2;
           
           node.options.forEach((option, optionIndex) => {
-            const optionY = optionStartY + (optionIndex * (OPTION_HEIGHT + 20));
-            const optionX = questionPos.x + QUESTION_WIDTH + 60;
+            const optionY = optionStartY + (optionIndex * (OPTION_HEIGHT + 30));
+            const optionX = questionPos.x + QUESTION_WIDTH + 80; // Increased gap
             
             // Create a unique ID for the option
             const optionId = `${nodeId}-option-${optionIndex}`;
@@ -159,7 +159,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
     return (
       <div
         key={nodeId}
-        className={`absolute rounded-xl border-2 p-4 transition-all duration-300 ${
+        className={`absolute rounded-xl border-2 p-6 transition-all duration-300 ${
           isCurrent
             ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-purple-700 shadow-2xl scale-105'
             : isInPath
@@ -181,7 +181,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
               {node.question}
             </div>
             {isCurrent && (
-              <div className="mt-2 text-xs text-blue-100">
+              <div className="mt-3 text-xs text-blue-100">
                 Choose an option →
               </div>
             )}
@@ -208,7 +208,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         <div key={optionId}>
           {/* Option button */}
           <button
-            className={`absolute rounded-lg border-2 p-3 transition-all duration-300 text-left ${
+            className={`absolute rounded-lg border-2 p-4 transition-all duration-300 text-left ${
               isCurrent
                 ? 'bg-purple-600 text-white border-purple-700 shadow-xl scale-105'
                 : isSelected
@@ -224,21 +224,21 @@ export const FlowChart: React.FC<FlowChartProps> = ({
             onClick={() => onNavigate(option.nextId)}
           >
             <div className="flex items-center justify-between h-full">
-              <div className="flex-1 pr-2">
+              <div className="flex-1 pr-3">
                 <div className={`font-medium text-sm leading-tight ${
                   isCurrent || isSelected ? 'text-white' : 'text-gray-800'
                 }`}>
                   {option.text}
                 </div>
                 {targetNode?.type === 'result' && targetNode.city && (
-                  <div className={`text-xs mt-1 ${
+                  <div className={`text-xs mt-2 ${
                     isCurrent || isSelected ? 'text-blue-100' : 'text-gray-500'
                   }`}>
                     → {targetNode.city.name}
                   </div>
                 )}
               </div>
-              <ArrowRight className={`w-4 h-4 flex-shrink-0 ${
+              <ArrowRight className={`w-5 h-5 flex-shrink-0 ${
                 isCurrent || isSelected ? 'text-white' : 'text-gray-400'
               }`} />
             </div>
@@ -262,7 +262,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
     return (
       <div
         key={nodeId}
-        className={`absolute rounded-xl border-2 p-4 transition-all duration-300 ${
+        className={`absolute rounded-xl border-2 p-5 transition-all duration-300 ${
           isCurrent
             ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white border-emerald-700 shadow-2xl scale-105'
             : isInPath
@@ -277,22 +277,22 @@ export const FlowChart: React.FC<FlowChartProps> = ({
         }}
       >
         <div className="h-full flex flex-col justify-center">
-          <div className="flex items-center mb-2">
-            <MapPin className={`w-4 h-4 mr-2 ${
+          <div className="flex items-center mb-3">
+            <MapPin className={`w-5 h-5 mr-2 ${
               isCurrent ? 'text-white' : isInPath ? 'text-green-600' : 'text-gray-500'
             }`} />
-            <div className={`font-bold text-sm ${
+            <div className={`font-bold text-base ${
               isCurrent ? 'text-white' : isInPath ? 'text-green-800' : 'text-gray-800'
             }`}>
               {node.city.name}
             </div>
           </div>
-          <div className={`text-xs ${
+          <div className={`text-sm ${
             isCurrent ? 'text-green-100' : isInPath ? 'text-green-600' : 'text-gray-600'
           }`}>
             {node.city.country}
           </div>
-          <div className={`text-xs mt-1 ${
+          <div className={`text-xs mt-2 ${
             isCurrent ? 'text-green-100' : isInPath ? 'text-green-600' : 'text-gray-500'
           }`}>
             {node.city.temperature} • {node.city.vibe}
@@ -353,8 +353,8 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   };
 
   // Calculate total dimensions
-  const maxX = Math.max(...Object.values(positions).map(pos => pos.x + pos.width)) + 100;
-  const maxY = Math.max(...Object.values(positions).map(pos => pos.y + pos.height)) + 100;
+  const maxX = Math.max(...Object.values(positions).map(pos => pos.x + pos.width)) + 150;
+  const maxY = Math.max(...Object.values(positions).map(pos => pos.y + pos.height)) + 150;
 
   return (
     <div className="h-full flex flex-col bg-gray-50">
