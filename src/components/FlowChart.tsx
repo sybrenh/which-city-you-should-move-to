@@ -34,7 +34,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   const OPTION_HEIGHT = 70;
   const RESULT_WIDTH = 280;
   const RESULT_HEIGHT = 120;
-  const HORIZONTAL_SPACING = 450; // Increased from 350
+  const HORIZONTAL_SPACING = 700; // Increased from 350
   const VERTICAL_SPACING = 140;   // Increased from 120
   const OPTION_TO_QUESTION_GAP = 120; // New gap between options and next questions
 
