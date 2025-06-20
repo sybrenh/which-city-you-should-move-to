@@ -351,10 +351,9 @@ export const FlowChart: React.FC<FlowChartProps> = ({
       </svg>
     );
   };
-
-  // Calculate total dimensions
-  const maxX = Math.max(...Object.values(positions).map(pos => pos.x + pos.width)) + 150;
-  const maxY = Math.max(...Object.values(positions).map(pos => pos.y + pos.height)) + 150;
+// Calculate total dimensions
+  const maxX = Object.values(positions).reduce((max, pos) => Math.max(max, pos.x + pos.width), 0) + 200; // Increased padding
+  const maxY = Object.values(positions).reduce((max, pos) => Math.max(max, pos.y + pos.height), 0) + 200; // Increased padding
 
   return (
     <div className="h-full flex flex-col bg-gray-50">
