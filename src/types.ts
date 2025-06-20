@@ -22,3 +22,9 @@ export interface TreeState {
   path: string[];
   isAnimating: boolean;
 }
+
+export interface TreePosition {
+  x: number;
+  y: number;
+  level: number;
+}

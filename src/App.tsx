@@ -3,12 +3,10 @@ import { MapPin, Compass } from 'lucide-react';
 import { useDecisionTree } from './hooks/useDecisionTree';
 import { QuestionCard } from './components/QuestionCard';
 import { CityResult } from './components/CityResult';
-import { TreeVisualization } from './components/TreeVisualization';
-import { ZoomControls } from './components/ZoomControls';
+import { TreeView } from './components/TreeView';
 
 function App() {
   const { state, navigateToNode, restart, getCurrentNode } = useDecisionTree();
-  const [zoom, setZoom] = useState(1);
   const [showTreeView, setShowTreeView] = useState(true);
   
   const currentNode = getCurrentNode();
@@ -61,49 +59,14 @@ function App() {
       {/* Main Content */}
       <main className="relative">
         {showTreeView ? (
-          <>
-            {/* Tree Visualization */}
-            <div className="h-[70vh] relative">
-              <TreeVisualization
-                currentNodeId={state.currentNodeId}
-                path={state.path}
-                onNavigate={navigateToNode}
-                zoom={zoom}
-                onZoomChange={setZoom}
-              />
-              <ZoomControls zoom={zoom} onZoomChange={setZoom} />
-            </div>
-
-            {/* Current Node Info */}
-            <div className="container mx-auto px-4 py-6">
-              {currentNode.type === 'result' ? (
-                <div className="max-w-2xl mx-auto">
-                  <CityResult 
-                    node={currentNode}
-                    onRestart={restart}
-                    isAnimating={state.isAnimating}
-                  />
-                </div>
-              ) : (
-                <div className="text-center">
-                  <div className="bg-white rounded-xl shadow-lg p-6 max-w-md mx-auto">
-                    <h3 className="text-xl font-bold text-gray-800 mb-4">
-                      {currentNode.question}
-                    </h3>
-                    <p className="text-gray-600 mb-4">
-                      Click an option in the tree above to continue
-                    </p>
-                    <button
-                      onClick={restart}
-                      className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all"
-                    >
-                      Start Over
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </>
+          <div className="h-[80vh]">
+            <TreeView
+              currentNodeId={state.currentNodeId}
+              path={state.path}
+              onNavigate={navigateToNode}
+              onRestart={restart}
+            />
+          </div>
         ) : (
           /* Card View */
           <div className="container mx-auto px-4 pb-12">
