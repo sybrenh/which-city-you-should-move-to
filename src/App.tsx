@@ -109,18 +109,6 @@ function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-100 py-6 mt-8">
-        <div className="container mx-auto px-4 text-center text-gray-600">
-          <div className="flex items-center justify-center mb-2">
-            <MapPin className="w-4 h-4 mr-1" />
-            <span>Find your perfect city to call home</span>
-          </div>
-          <p className="text-sm">
-            Navigate through the decision tree to discover your ideal destination
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
