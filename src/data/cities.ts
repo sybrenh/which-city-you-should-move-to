@@ -15,7 +15,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'mild-winter': {
     id: 'mild-winter',
     type: 'question',
-    question: 'What size city appeals to you most?',
+    question: 'What size city appeals to you most? 🏙️',
     options: [
       { text: 'Large metropolitan area (1M+ people)', nextId: 'mild-large' },
       { text: 'Medium-sized city (100K-1M people)', nextId: 'mild-medium' },
@@ -26,7 +26,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cool-winter': {
     id: 'cool-winter',
     type: 'question',
-    question: 'How important is it that English is widely spoken?',
+    question: 'How important is it that English is widely spoken? 🗣️',
     options: [
       { text: 'Essential - I need English everywhere', nextId: 'cool-english-essential' },
       { text: 'Helpful - some English would be nice', nextId: 'cool-english-helpful' },
@@ -37,7 +37,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cold-winter': {
     id: 'cold-winter',
     type: 'question',
-    question: 'What timezone preference do you have?',
+    question: 'What timezone preference do you have? 🕐',
     options: [
       { text: 'European timezone (CET/GMT+1)', nextId: 'cold-european' },
       { text: 'North American timezone (EST/PST)', nextId: 'cold-american' },
@@ -48,7 +48,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'mild-large': {
     id: 'mild-large',
     type: 'question',
-    question: 'What kind of outdoor activities do you enjoy most?',
+    question: 'What kind of outdoor activities do you enjoy most? 🏃‍♂️',
     options: [
       { text: 'Beach and water sports', nextId: 'beach-large' },
       { text: 'Urban parks and city exploration', nextId: 'urban-large' },
@@ -59,7 +59,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'mild-medium': {
     id: 'mild-medium',
     type: 'question',
-    question: 'How important is cultural diversity to you?',
+    question: 'How important is cultural diversity to you? 🌍',
     options: [
       { text: 'Very important - I love multicultural cities', nextId: 'diverse-medium' },
       { text: 'Somewhat important - some variety is nice', nextId: 'moderate-medium' },
@@ -70,7 +70,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'mild-small': {
     id: 'mild-small',
     type: 'question',
-    question: 'What draws you to smaller cities?',
+    question: 'What draws you to smaller cities? 🏡',
     options: [
       { text: 'Close-knit community feel', nextId: 'community-small' },
       { text: 'Lower cost of living', nextId: 'affordable-small' },
@@ -81,7 +81,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cool-english-essential': {
     id: 'cool-english-essential',
     type: 'question',
-    question: 'Do you prefer mountains or coastlines?',
+    question: 'Do you prefer mountains or coastlines? 🏔️',
     options: [
       { text: 'Mountains and hiking trails', nextId: 'mountain-english' },
       { text: 'Coastal cities and ocean views', nextId: 'coastal-english' },
@@ -92,7 +92,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cool-english-helpful': {
     id: 'cool-english-helpful',
     type: 'question',
-    question: 'What type of work environment interests you?',
+    question: 'What type of work environment interests you? 💼',
     options: [
       { text: 'Tech and innovation hubs', nextId: 'tech-helpful' },
       { text: 'Creative and artistic communities', nextId: 'creative-helpful' },
@@ -103,7 +103,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cool-no-english': {
     id: 'cool-no-english',
     type: 'question',
-    question: 'Which cultural experience appeals to you?',
+    question: 'Which cultural experience appeals to you? 🎭',
     options: [
       { text: 'Mediterranean lifestyle', nextId: 'mediterranean' },
       { text: 'Scandinavian design and nature', nextId: 'scandinavian' },
@@ -114,7 +114,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cold-european': {
     id: 'cold-european',
     type: 'question',
-    question: 'What draws you to colder European climates?',
+    question: 'What draws you to colder European climates? 🏰',
     options: [
       { text: 'Winter sports and alpine culture', nextId: 'alpine-sports' },
       { text: 'Historic architecture and culture', nextId: 'historic-culture' },
@@ -125,7 +125,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cold-american': {
     id: 'cold-american',
     type: 'question',
-    question: 'What type of winter activities interest you?',
+    question: 'What type of winter activities interest you? ⛷️',
     options: [
       { text: 'Skiing and snowboarding', nextId: 'winter-sports-us' },
       { text: 'Cozy indoor culture and arts', nextId: 'cozy-culture-us' },
@@ -136,7 +136,7 @@ export const decisionTree: Record<string, DecisionNode> = {
   'cold-asian': {
     id: 'cold-asian',
     type: 'question',
-    question: 'What aspect of Asian culture interests you most?',
+    question: 'What aspect of Asian culture interests you most? 🏮',
     options: [
       { text: 'Modern technology and innovation', nextId: 'tech-asia' },
       { text: 'Traditional culture and temples', nextId: 'traditional-asia' },
