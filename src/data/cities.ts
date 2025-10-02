@@ -4,549 +4,671 @@ export const decisionTree: Record<string, DecisionNode> = {
   start: {
     id: 'start',
     type: 'question',
-    question: 'What kind of winter weather do you prefer?',
+    question: '🌍 Which timezone would you prefer to live in?',
     options: [
-      { text: 'Mild and comfortable (15-21°C)', nextId: 'mild-winter' },
-      { text: 'Cool but not freezing (4-15°C)', nextId: 'cool-winter' },
-      { text: 'Cold and snowy (below 4°C)', nextId: 'cold-winter' }
+      { text: '🇺🇸 Americas (UTC-8 to UTC-5)', nextId: 'americas' },
+      { text: '🇪🇺 Europe/Africa (UTC+0 to UTC+3)', nextId: 'europe-africa' },
+      { text: '🇦🇺 Asia/Oceania (UTC+5 to UTC+12)', nextId: 'asia-oceania' },
+      { text: '🌐 I\'m flexible with any timezone', nextId: 'flexible-timezone' }
     ]
   },
 
-  'mild-winter': {
-    id: 'mild-winter',
+  // Americas Path
+  americas: {
+    id: 'americas',
     type: 'question',
-    question: 'What size city appeals to you most? 🏙️',
+    question: '🌡️ What\'s your ideal winter temperature?',
     options: [
-      { text: 'Large metropolitan area (1M+ people)', nextId: 'mild-large' },
-      { text: 'Medium-sized city (100K-1M people)', nextId: 'mild-medium' },
-      { text: 'Smaller city or town (under 100K)', nextId: 'mild-small' }
+      { text: '☀️ Warm (15-25°C) - No real winter', nextId: 'americas-warm' },
+      { text: '🌤️ Mild (5-15°C) - Light jackets', nextId: 'americas-mild' },
+      { text: '❄️ Cold (-5-5°C) - Snow and skiing', nextId: 'americas-cold' }
     ]
   },
 
-  'cool-winter': {
-    id: 'cool-winter',
+  'americas-warm': {
+    id: 'americas-warm',
     type: 'question',
-    question: 'How important is it that English is widely spoken? 🗣️',
+    question: '🏙️ What size city appeals to you?',
     options: [
-      { text: 'Essential - I need English everywhere', nextId: 'cool-english-essential' },
-      { text: 'Helpful - some English would be nice', nextId: 'cool-english-helpful' },
-      { text: 'Not important - I enjoy language challenges', nextId: 'cool-no-english' }
+      { text: '🌆 Major metropolis (2M+ people)', nextId: 'americas-warm-large' },
+      { text: '🏘️ Mid-size city (200K-2M people)', nextId: 'americas-warm-medium' },
+      { text: '🏡 Smaller city/town (under 200K)', nextId: 'americas-warm-small' }
     ]
   },
 
-  'cold-winter': {
-    id: 'cold-winter',
+  'americas-mild': {
+    id: 'americas-mild',
     type: 'question',
-    question: 'What timezone preference do you have? 🕐',
+    question: '🎯 What\'s most important to you?',
     options: [
-      { text: 'European timezone (CET/GMT+1)', nextId: 'cold-european' },
-      { text: 'North American timezone (EST/PST)', nextId: 'cold-american' },
-      { text: 'Asian timezone (JST/CST)', nextId: 'cold-asian' }
+      { text: '💼 Career opportunities', nextId: 'americas-mild-career' },
+      { text: '🎨 Arts and culture scene', nextId: 'americas-mild-culture' },
+      { text: '🌲 Access to nature', nextId: 'americas-mild-nature' }
     ]
   },
 
-  'mild-large': {
-    id: 'mild-large',
+  'americas-cold': {
+    id: 'americas-cold',
     type: 'question',
-    question: 'What kind of outdoor activities do you enjoy most? 🏃‍♂️',
+    question: '⛷️ How do you want to spend winter?',
     options: [
-      { text: 'Beach and water sports', nextId: 'beach-large' },
-      { text: 'Urban parks and city exploration', nextId: 'urban-large' },
-      { text: 'Desert landscapes and hiking', nextId: 'desert-large' }
+      { text: '🎿 Skiing and winter sports', nextId: 'americas-cold-sports' },
+      { text: '☕ Cozy indoor culture', nextId: 'americas-cold-cozy' },
+      { text: '🏔️ Mountain town vibes', nextId: 'americas-cold-mountain' }
     ]
   },
 
-  'mild-medium': {
-    id: 'mild-medium',
+  // Europe/Africa Path
+  'europe-africa': {
+    id: 'europe-africa',
     type: 'question',
-    question: 'How important is cultural diversity to you? 🌍',
+    question: '🌍 Which region appeals to you most?',
     options: [
-      { text: 'Very important - I love multicultural cities', nextId: 'diverse-medium' },
-      { text: 'Somewhat important - some variety is nice', nextId: 'moderate-medium' },
-      { text: 'Not crucial - I prefer local culture', nextId: 'local-medium' }
+      { text: '🏛️ Western Europe - History & culture', nextId: 'western-europe' },
+      { text: '🌅 Mediterranean - Coastal lifestyle', nextId: 'mediterranean' },
+      { text: '🌲 Northern Europe - Nature & design', nextId: 'northern-europe' },
+      { text: '🦁 Africa - Adventure & growth', nextId: 'africa' }
     ]
   },
 
-  'mild-small': {
-    id: 'mild-small',
+  'western-europe': {
+    id: 'western-europe',
     type: 'question',
-    question: 'What draws you to smaller cities? 🏡',
+    question: '🗣️ Language preference?',
     options: [
-      { text: 'Close-knit community feel', nextId: 'community-small' },
-      { text: 'Lower cost of living', nextId: 'affordable-small' },
-      { text: 'Access to nature and outdoors', nextId: 'nature-small' }
+      { text: '🇬🇧 English-speaking preferred', nextId: 'europe-english' },
+      { text: '🇩🇪 German/Dutch region', nextId: 'europe-german' },
+      { text: '🇫🇷 French-speaking region', nextId: 'europe-french' }
     ]
   },
 
-  'cool-english-essential': {
-    id: 'cool-english-essential',
+  mediterranean: {
+    id: 'mediterranean',
     type: 'question',
-    question: 'Do you prefer mountains or coastlines? 🏔️',
+    question: '🏖️ What draws you to the Mediterranean?',
     options: [
-      { text: 'Mountains and hiking trails', nextId: 'mountain-english' },
-      { text: 'Coastal cities and ocean views', nextId: 'coastal-english' },
-      { text: 'Rolling hills and countryside', nextId: 'hills-english' }
+      { text: '🌊 Beach and island life', nextId: 'med-islands' },
+      { text: '🍷 Food and wine culture', nextId: 'med-food' },
+      { text: '🏛️ Ancient history and ruins', nextId: 'med-history' }
     ]
   },
 
-  'cool-english-helpful': {
-    id: 'cool-english-helpful',
+  'northern-europe': {
+    id: 'northern-europe',
     type: 'question',
-    question: 'What type of work environment interests you? 💼',
+    question: '❄️ What attracts you to the North?',
     options: [
-      { text: 'Tech and innovation hubs', nextId: 'tech-helpful' },
-      { text: 'Creative and artistic communities', nextId: 'creative-helpful' },
-      { text: 'Traditional business centers', nextId: 'business-helpful' }
+      { text: '🏠 Hygge and design culture', nextId: 'nordic-hygge' },
+      { text: '🌌 Northern lights and nature', nextId: 'nordic-nature' },
+      { text: '💡 Innovation and tech scene', nextId: 'nordic-tech' }
     ]
   },
 
-  'cool-no-english': {
-    id: 'cool-no-english',
+  africa: {
+    id: 'africa',
     type: 'question',
-    question: 'Which cultural experience appeals to you? 🎭',
+    question: '🌍 What type of African experience?',
     options: [
-      { text: 'Mediterranean lifestyle', nextId: 'mediterranean' },
-      { text: 'Scandinavian design and nature', nextId: 'scandinavian' },
-      { text: 'Central European history and culture', nextId: 'central-european' }
+      { text: '🏙️ Modern cosmopolitan city', nextId: 'africa-modern' },
+      { text: '🦁 Safari and wildlife access', nextId: 'africa-wildlife' },
+      { text: '🏖️ Coastal and beach culture', nextId: 'africa-coastal' }
     ]
   },
 
-  'cold-european': {
-    id: 'cold-european',
+  // Asia/Oceania Path
+  'asia-oceania': {
+    id: 'asia-oceania',
     type: 'question',
-    question: 'What draws you to colder European climates? 🏰',
+    question: '🌏 Which region interests you most?',
     options: [
-      { text: 'Winter sports and alpine culture', nextId: 'alpine-sports' },
-      { text: 'Historic architecture and culture', nextId: 'historic-culture' },
-      { text: 'Northern lights and Arctic experiences', nextId: 'arctic-experience' }
+      { text: '🏮 East Asia - Modern & traditional', nextId: 'east-asia' },
+      { text: '🕌 Southeast Asia - Tropical & diverse', nextId: 'southeast-asia' },
+      { text: '🦘 Oceania - Outdoor & relaxed', nextId: 'oceania' },
+      { text: '🏔️ Central/South Asia - Mountains & culture', nextId: 'central-asia' }
     ]
   },
 
-  'cold-american': {
-    id: 'cold-american',
+  'east-asia': {
+    id: 'east-asia',
     type: 'question',
-    question: 'What type of winter activities interest you? ⛷️',
+    question: '🏙️ What appeals to you most?',
     options: [
-      { text: 'Skiing and snowboarding', nextId: 'winter-sports-us' },
-      { text: 'Cozy indoor culture and arts', nextId: 'cozy-culture-us' },
-      { text: 'Four distinct seasons experience', nextId: 'four-seasons-us' }
+      { text: '🤖 Ultra-modern tech cities', nextId: 'asia-tech' },
+      { text: '🏯 Traditional culture & temples', nextId: 'asia-traditional' },
+      { text: '🍜 Food culture paradise', nextId: 'asia-food' }
     ]
   },
 
-  'cold-asian': {
-    id: 'cold-asian',
+  'southeast-asia': {
+    id: 'southeast-asia',
     type: 'question',
-    question: 'What aspect of Asian culture interests you most? 🏮',
+    question: '🌴 What\'s your priority?',
     options: [
-      { text: 'Modern technology and innovation', nextId: 'tech-asia' },
-      { text: 'Traditional culture and temples', nextId: 'traditional-asia' },
-      { text: 'Unique seasonal experiences', nextId: 'seasonal-asia' }
+      { text: '💰 Low cost of living', nextId: 'sea-affordable' },
+      { text: '🏖️ Tropical beach lifestyle', nextId: 'sea-beaches' },
+      { text: '🌆 Modern expat-friendly cities', nextId: 'sea-expat' }
     ]
   },
 
-  // Results for beach-large path
-  'beach-large': {
-    id: 'beach-large',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'San Diego',
-      country: 'California, USA',
-      description: 'Perfect year-round weather meets stunning beaches and a laid-back lifestyle in this major metropolitan area.',
-      highlights: ['18-24°C year-round', 'World-class beaches', 'Craft beer scene', 'Balboa Park', '1.4M population'],
-      image: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg',
-      temperature: '18-24°C',
-      vibe: 'Relaxed beach metropolis'
-    }
+  oceania: {
+    id: 'oceania',
+    type: 'question',
+    question: '🌊 What draws you to Oceania?',
+    options: [
+      { text: '🏄‍♂️ Surf and beach culture', nextId: 'oceania-surf' },
+      { text: '🏙️ Cosmopolitan city life', nextId: 'oceania-city' },
+      { text: '🌿 Nature and outdoor adventures', nextId: 'oceania-nature' }
+    ]
   },
 
-  'urban-large': {
-    id: 'urban-large',
+  // Flexible timezone path
+  'flexible-timezone': {
+    id: 'flexible-timezone',
+    type: 'question',
+    question: '🌡️ What\'s your ideal year-round climate?',
+    options: [
+      { text: '☀️ Always warm (20-30°C)', nextId: 'global-tropical' },
+      { text: '🌤️ Mild with seasons (10-25°C)', nextId: 'global-temperate' },
+      { text: '❄️ Cool with distinct seasons (0-20°C)', nextId: 'global-continental' }
+    ]
+  },
+
+  // Results - Americas Warm Large
+  'americas-warm-large': {
+    id: 'americas-warm-large',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Los Angeles',
       country: 'California, USA',
-      description: 'The entertainment capital with endless urban exploration, diverse neighborhoods, and perfect weather.',
-      highlights: ['20-26°C year-round', 'Entertainment industry', 'Diverse neighborhoods', 'Urban hiking', '4M population'],
+      description: 'The entertainment capital with endless sunshine, diverse neighborhoods, and a thriving creative scene.',
+      highlights: ['Year-round sunshine', 'Entertainment industry hub', 'Beach access', 'Diverse food scene', 'Mountain views'],
       image: 'https://images.pexels.com/photos/2695679/pexels-photo-2695679.jpeg',
-      temperature: '16-24°C',
-      vibe: 'Creative urban energy'
+      temperature: '15-25°C year-round',
+      vibe: 'Creative sunshine metropolis'
     }
   },
 
-  'desert-large': {
-    id: 'desert-large',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Phoenix',
-      country: 'Arizona, USA',
-      description: 'Desert beauty with incredible hiking, golf, and a thriving metropolitan arts scene.',
-      highlights: ['300+ sunny days', 'Desert hiking trails', 'Southwest cuisine', 'Golf paradise', '1.7M population'],
-      image: 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg',
-      temperature: '15-27°C (winter)',
-      vibe: 'Desert adventure hub'
-    }
-  },
-
-  'diverse-medium': {
-    id: 'diverse-medium',
+  'americas-warm-medium': {
+    id: 'americas-warm-medium',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Austin',
       country: 'Texas, USA',
-      description: 'Keep it weird in this vibrant city known for music, food, tech innovation, and cultural diversity.',
-      highlights: ['Live music capital', 'Food truck culture', 'Tech hub', 'South by Southwest', '965K population'],
+      description: 'Keep it weird in this vibrant city known for music, food trucks, and tech innovation.',
+      highlights: ['Live music capital', 'Food truck culture', 'Tech scene', 'No state income tax', 'Outdoor festivals'],
       image: 'https://images.pexels.com/photos/2469122/pexels-photo-2469122.jpeg',
-      temperature: '10-21°C (winter)',
-      vibe: 'Creative and diverse'
+      temperature: '8-28°C',
+      vibe: 'Quirky music city'
     }
   },
 
-  'moderate-medium': {
-    id: 'moderate-medium',
+  'americas-warm-small': {
+    id: 'americas-warm-small',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
-      name: 'Nashville',
-      country: 'Tennessee, USA',
-      description: 'Music City with Southern charm, growing food scene, and perfect medium-city feel.',
-      highlights: ['Country music capital', 'Southern hospitality', 'Growing tech scene', 'Historic districts', '695K population'],
-      image: 'https://images.pexels.com/photos/2882234/pexels-photo-2882234.jpeg',
-      temperature: '5-15°C (winter)',
-      vibe: 'Musical Southern charm'
+      name: 'Santa Barbara',
+      country: 'California, USA',
+      description: 'The American Riviera with Spanish architecture, wine country, and perfect weather.',
+      highlights: ['Spanish colonial architecture', 'Wine country nearby', 'Beach lifestyle', 'Small-town charm', 'Perfect weather'],
+      image: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg',
+      temperature: '12-24°C year-round',
+      vibe: 'Coastal elegance'
     }
   },
 
-  'local-medium': {
-    id: 'local-medium',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Charleston',
-      country: 'South Carolina, USA',
-      description: 'Historic Southern charm with incredible cuisine, architecture, and coastal beauty.',
-      highlights: ['Historic architecture', 'World-class cuisine', 'Southern hospitality', 'Coastal access', '150K population'],
-      image: 'https://images.pexels.com/photos/2882234/pexels-photo-2882234.jpeg',
-      temperature: '8-18°C (winter)',
-      vibe: 'Historic Southern elegance'
-    }
-  },
-
-  'community-small': {
-    id: 'community-small',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Savannah',
-      country: 'Georgia, USA',
-      description: 'Charming historic squares, tight-knit community, and Southern hospitality in a walkable city.',
-      highlights: ['Historic squares', 'Walkable downtown', 'Art scene', 'Ghost tours', '145K population'],
-      image: 'https://images.pexels.com/photos/1402850/pexels-photo-1402850.jpeg',
-      temperature: '8-19°C (winter)',
-      vibe: 'Historic community charm'
-    }
-  },
-
-  'affordable-small': {
-    id: 'affordable-small',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Asheville',
-      country: 'North Carolina, USA',
-      description: 'Mountain town with craft beer, arts scene, and affordable living in the Blue Ridge Mountains.',
-      highlights: ['Blue Ridge Mountains', 'Craft beer capital', 'Arts district', 'Affordable living', '95K population'],
-      image: 'https://images.pexels.com/photos/1761282/pexels-photo-1761282.jpeg',
-      temperature: '2-12°C (winter)',
-      vibe: 'Artsy mountain community'
-    }
-  },
-
-  'nature-small': {
-    id: 'nature-small',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Boulder',
-      country: 'Colorado, USA',
-      description: 'Gateway to the Rockies with incredible outdoor access and a health-conscious community.',
-      highlights: ['Rocky Mountain access', 'Outdoor recreation', 'Health-conscious', 'University town', '108K population'],
-      image: 'https://images.pexels.com/photos/2265876/pexels-photo-2265876.jpeg',
-      temperature: '0-10°C (winter)',
-      vibe: 'Outdoor adventure base'
-    }
-  },
-
-  'mountain-english': {
-    id: 'mountain-english',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Denver',
-      country: 'Colorado, USA',
-      description: 'Mile-high city with incredible mountain access, outdoor recreation, and English-speaking environment.',
-      highlights: ['300+ days of sunshine', 'Rocky Mountain access', 'Craft brewery capital', 'Outdoor lifestyle', '715K population'],
-      image: 'https://images.pexels.com/photos/2265876/pexels-photo-2265876.jpeg',
-      temperature: '7-15°C (winter)',
-      vibe: 'Active mountain lifestyle'
-    }
-  },
-
-  'coastal-english': {
-    id: 'coastal-english',
+  'americas-mild-career': {
+    id: 'americas-mild-career',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Seattle',
       country: 'Washington, USA',
-      description: 'Emerald city with coffee culture, tech innovation, and stunning natural beauty.',
-      highlights: ['Coffee capital', 'Tech industry', 'Pike Place Market', 'Mountain & water views', '750K population'],
+      description: 'Tech hub with coffee culture, stunning nature access, and progressive values.',
+      highlights: ['Tech industry center', 'Coffee capital', 'Mountain and water views', 'Music scene', 'Progressive culture'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '7-13°C (winter)',
-      vibe: 'Urban sophistication'
+      temperature: '4-22°C',
+      vibe: 'Tech-forward nature city'
     }
   },
 
-  'hills-english': {
-    id: 'hills-english',
+  'americas-mild-culture': {
+    id: 'americas-mild-culture',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
-      name: 'San Francisco',
-      country: 'California, USA',
-      description: 'Iconic city with rolling hills, world-class dining, and cultural diversity.',
-      highlights: ['Golden Gate Bridge', 'Diverse neighborhoods', 'World-class dining', 'Tech innovation', '875K population'],
-      image: 'https://images.pexels.com/photos/1006965/pexels-photo-1006965.jpeg',
-      temperature: '10-15°C year-round',
-      vibe: 'Progressive urban culture'
+      name: 'Montreal',
+      country: 'Quebec, Canada',
+      description: 'European charm in North America with incredible arts scene and joie de vivre.',
+      highlights: ['European atmosphere', 'Arts and festivals', 'Bilingual culture', 'Great food scene', 'Historic architecture'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '-8-24°C',
+      vibe: 'European-style cultural hub'
     }
   },
 
-  'tech-helpful': {
-    id: 'tech-helpful',
+  'americas-mild-nature': {
+    id: 'americas-mild-nature',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Vancouver',
       country: 'British Columbia, Canada',
-      description: 'Tech hub with stunning natural beauty, mild climate, and multicultural environment.',
-      highlights: ['Tech industry', 'Mountain & ocean views', 'Multicultural', 'Mild climate', '675K population'],
+      description: 'Mountains meet ocean in this outdoor paradise with mild climate and multiculturalism.',
+      highlights: ['Mountain and ocean access', 'Mild climate', 'Multicultural', 'Outdoor recreation', 'Clean and green'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '3-8°C (winter)',
-      vibe: 'Tech-forward nature city'
+      temperature: '3-22°C',
+      vibe: 'Outdoor paradise'
     }
   },
 
-  'creative-helpful': {
-    id: 'creative-helpful',
+  'americas-cold-sports': {
+    id: 'americas-cold-sports',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
-      name: 'Portland',
-      country: 'Oregon, USA',
-      description: 'Creative hub with quirky culture, incredible food scene, and Pacific Northwest beauty.',
-      highlights: ['Creative community', 'Food truck culture', 'Craft beer', 'Keep Portland Weird', '650K population'],
-      image: 'https://images.pexels.com/photos/2882234/pexels-photo-2882234.jpeg',
-      temperature: '4-10°C (winter)',
-      vibe: 'Creative and quirky'
+      name: 'Denver',
+      country: 'Colorado, USA',
+      description: 'Mile-high city with 300+ days of sunshine and world-class skiing nearby.',
+      highlights: ['300+ sunny days', 'World-class skiing', 'Craft beer scene', 'Outdoor lifestyle', 'Mountain access'],
+      image: 'https://images.pexels.com/photos/2265876/pexels-photo-2265876.jpeg',
+      temperature: '-2-28°C',
+      vibe: 'Sunny mountain adventure'
     }
   },
 
-  'business-helpful': {
-    id: 'business-helpful',
+  'americas-cold-cozy': {
+    id: 'americas-cold-cozy',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
-      name: 'Toronto',
-      country: 'Ontario, Canada',
-      description: 'Major business center with incredible diversity, culture, and four-season climate.',
-      highlights: ['Financial district', 'Multicultural', 'CN Tower', 'Four seasons', '2.9M population'],
-      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '-5-2°C (winter)',
-      vibe: 'International business hub'
+      name: 'Quebec City',
+      country: 'Quebec, Canada',
+      description: 'European fairy tale with cobblestone streets, winter festivals, and cozy cafes.',
+      highlights: ['UNESCO World Heritage', 'Winter carnival', 'French culture', 'Cobblestone streets', 'Cozy atmosphere'],
+      image: 'https://images.pexels.com/photos/1402850/pexels-photo-1402850.jpeg',
+      temperature: '-12-25°C',
+      vibe: 'European winter charm'
     }
   },
 
-  'mediterranean': {
-    id: 'mediterranean',
+  'americas-cold-mountain': {
+    id: 'americas-cold-mountain',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Banff',
+      country: 'Alberta, Canada',
+      description: 'Mountain town paradise in the Canadian Rockies with world-class outdoor recreation.',
+      highlights: ['Canadian Rockies', 'World-class skiing', 'Hot springs', 'Wildlife viewing', 'Mountain town charm'],
+      image: 'https://images.pexels.com/photos/1730877/pexels-photo-1730877.jpeg',
+      temperature: '-15-22°C',
+      vibe: 'Rocky Mountain paradise'
+    }
+  },
+
+  // Europe Results
+  'europe-english': {
+    id: 'europe-english',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Edinburgh',
+      country: 'Scotland, UK',
+      description: 'Historic capital with castle views, festival culture, and Scottish charm.',
+      highlights: ['Edinburgh Castle', 'Festival city', 'Historic Old Town', 'Whisky culture', 'Literary heritage'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '2-19°C',
+      vibe: 'Historic cultural capital'
+    }
+  },
+
+  'europe-german': {
+    id: 'europe-german',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Berlin',
+      country: 'Germany',
+      description: 'Creative capital with rich history, vibrant nightlife, and affordable living.',
+      highlights: ['Rich history', 'Art and culture scene', 'Affordable living', 'Vibrant nightlife', 'Green spaces'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '-1-24°C',
+      vibe: 'Creative historical hub'
+    }
+  },
+
+  'europe-french': {
+    id: 'europe-french',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Lyon',
+      country: 'France',
+      description: 'Gastronomic capital with Renaissance architecture and French savoir-vivre.',
+      highlights: ['Culinary capital', 'Renaissance architecture', 'Silk industry heritage', 'Rhône and Saône rivers', 'French culture'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '2-26°C',
+      vibe: 'Gastronomic elegance'
+    }
+  },
+
+  'med-islands': {
+    id: 'med-islands',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Palma',
+      country: 'Mallorca, Spain',
+      description: 'Island paradise with Gothic cathedral, crystal waters, and Mediterranean lifestyle.',
+      highlights: ['Island living', 'Crystal clear waters', 'Gothic cathedral', 'Mediterranean cuisine', 'Year-round sailing'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '8-29°C',
+      vibe: 'Island Mediterranean paradise'
+    }
+  },
+
+  'med-food': {
+    id: 'med-food',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Barcelona',
       country: 'Catalonia, Spain',
-      description: 'Mediterranean paradise with incredible architecture, beach culture, and vibrant nightlife.',
-      highlights: ['Gaudí architecture', 'Beach access', 'Tapas culture', 'Mediterranean climate', '1.6M population'],
+      description: 'Gaudí\'s masterpiece with incredible tapas culture, beaches, and Catalan creativity.',
+      highlights: ['Gaudí architecture', 'Tapas culture', 'Beach access', 'Las Ramblas', 'Creative energy'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '8-15°C (winter)',
-      vibe: 'Mediterranean lifestyle'
+      temperature: '8-28°C',
+      vibe: 'Artistic Mediterranean metropolis'
     }
   },
 
-  'scandinavian': {
-    id: 'scandinavian',
+  'med-history': {
+    id: 'med-history',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Athens',
+      country: 'Greece',
+      description: 'Cradle of democracy with ancient ruins, vibrant neighborhoods, and Greek island access.',
+      highlights: ['Ancient Acropolis', 'Birthplace of democracy', 'Greek island access', 'Vibrant neighborhoods', 'Mediterranean climate'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '6-33°C',
+      vibe: 'Ancient meets modern'
+    }
+  },
+
+  'nordic-hygge': {
+    id: 'nordic-hygge',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Copenhagen',
       country: 'Denmark',
       description: 'Design capital with hygge culture, bike-friendly streets, and Scandinavian quality of life.',
-      highlights: ['Design culture', 'Bike-friendly', 'Hygge lifestyle', 'High quality of life', '660K population'],
+      highlights: ['Hygge lifestyle', 'Design culture', 'Bike-friendly', 'High quality of life', 'Cozy cafes'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '0-4°C (winter)',
-      vibe: 'Scandinavian design culture'
+      temperature: '0-22°C',
+      vibe: 'Scandinavian design paradise'
     }
   },
 
-  'central-european': {
-    id: 'central-european',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Prague',
-      country: 'Czech Republic',
-      description: 'Fairy-tale architecture, rich history, affordable living, and Central European charm.',
-      highlights: ['Historic architecture', 'Affordable living', 'Beer culture', 'Castle views', '1.3M population'],
-      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '-2-3°C (winter)',
-      vibe: 'Historic Central European'
-    }
-  },
-
-  'alpine-sports': {
-    id: 'alpine-sports',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Innsbruck',
-      country: 'Austria',
-      description: 'Alpine paradise with world-class skiing, mountain culture, and Austrian charm.',
-      highlights: ['World-class skiing', 'Alpine culture', 'Mountain views', 'Winter Olympics host', '132K population'],
-      image: 'https://images.pexels.com/photos/1730877/pexels-photo-1730877.jpeg',
-      temperature: '-5-2°C (winter)',
-      vibe: 'Alpine sports paradise'
-    }
-  },
-
-  'historic-culture': {
-    id: 'historic-culture',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Vienna',
-      country: 'Austria',
-      description: 'Imperial grandeur with coffee house culture, classical music, and European sophistication.',
-      highlights: ['Imperial architecture', 'Coffee house culture', 'Classical music', 'Museums', '1.9M population'],
-      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '-1-4°C (winter)',
-      vibe: 'Imperial European culture'
-    }
-  },
-
-  'arctic-experience': {
-    id: 'arctic-experience',
+  'nordic-nature': {
+    id: 'nordic-nature',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Tromsø',
       country: 'Norway',
-      description: 'Arctic adventure with Northern Lights, midnight sun, and unique polar experiences.',
-      highlights: ['Northern Lights', 'Midnight sun', 'Arctic culture', 'Sami heritage', '77K population'],
+      description: 'Arctic adventure with Northern Lights, midnight sun, and pristine wilderness.',
+      highlights: ['Northern Lights', 'Midnight sun', 'Arctic wilderness', 'Sami culture', 'Unique experiences'],
       image: 'https://images.pexels.com/photos/1761282/pexels-photo-1761282.jpeg',
-      temperature: '-8--2°C (winter)',
+      temperature: '-4-16°C',
       vibe: 'Arctic adventure'
     }
   },
 
-  'winter-sports-us': {
-    id: 'winter-sports-us',
+  'nordic-tech': {
+    id: 'nordic-tech',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
-      name: 'Salt Lake City',
-      country: 'Utah, USA',
-      description: 'Gateway to world-class skiing with a thriving downtown and outdoor culture.',
-      highlights: ['World-class skiing', 'Outdoor recreation', 'Craft beer scene', 'Mountain access', '200K population'],
-      image: 'https://images.pexels.com/photos/1730877/pexels-photo-1730877.jpeg',
-      temperature: '-1-7°C (winter)',
-      vibe: 'Outdoor adventure base'
-    }
-  },
-
-  'cozy-culture-us': {
-    id: 'cozy-culture-us',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Portland',
-      country: 'Maine, USA',
-      description: 'Charming coastal city with incredible food scene and New England charm.',
-      highlights: ['Lobster capital', 'Craft beer', 'Historic Old Port', 'Coastal beauty', '68K population'],
-      image: 'https://images.pexels.com/photos/1402850/pexels-photo-1402850.jpeg',
-      temperature: '-4-4°C (winter)',
-      vibe: 'Cozy New England charm'
-    }
-  },
-
-  'four-seasons-us': {
-    id: 'four-seasons-us',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Burlington',
-      country: 'Vermont, USA',
-      description: 'Picture-perfect seasons with Lake Champlain views and vibrant local culture.',
-      highlights: ['Four distinct seasons', 'Lake Champlain', 'Local food scene', 'Outdoor recreation', '42K population'],
-      image: 'https://images.pexels.com/photos/1761282/pexels-photo-1761282.jpeg',
-      temperature: '-7-2°C (winter)',
-      vibe: 'Seasonal perfection'
-    }
-  },
-
-  'tech-asia': {
-    id: 'tech-asia',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Seoul',
-      country: 'South Korea',
-      description: 'Ultra-modern tech capital with incredible food, K-culture, and 24/7 energy.',
-      highlights: ['Tech innovation', 'K-culture hub', '24/7 lifestyle', 'Amazing food', '9.7M population'],
+      name: 'Stockholm',
+      country: 'Sweden',
+      description: 'Venice of the North with startup culture, design innovation, and archipelago beauty.',
+      highlights: ['Startup ecosystem', 'Design innovation', 'Archipelago setting', 'Work-life balance', 'Tech scene'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '-6-3°C (winter)',
-      vibe: 'High-tech urban energy'
+      temperature: '-3-22°C',
+      vibe: 'Nordic tech innovation'
     }
   },
 
-  'traditional-asia': {
-    id: 'traditional-asia',
+  'africa-modern': {
+    id: 'africa-modern',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Cape Town',
+      country: 'South Africa',
+      description: 'Where Table Mountain meets the ocean in Africa\'s most cosmopolitan city.',
+      highlights: ['Table Mountain', 'Wine regions nearby', 'Cosmopolitan culture', 'Beautiful beaches', 'Rich history'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '7-26°C',
+      vibe: 'Cosmopolitan African beauty'
+    }
+  },
+
+  'africa-wildlife': {
+    id: 'africa-wildlife',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Nairobi',
+      country: 'Kenya',
+      description: 'Safari capital with wildlife parks within the city and East African culture.',
+      highlights: ['Safari access', 'Nairobi National Park', 'East African culture', 'Business hub', 'Wildlife conservation'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '11-26°C',
+      vibe: 'Urban safari gateway'
+    }
+  },
+
+  'africa-coastal': {
+    id: 'africa-coastal',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Casablanca',
+      country: 'Morocco',
+      description: 'Atlantic coast meets Moroccan culture in this vibrant economic capital.',
+      highlights: ['Atlantic coastline', 'Moroccan culture', 'Hassan II Mosque', 'Economic center', 'French influence'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '8-26°C',
+      vibe: 'Moroccan coastal sophistication'
+    }
+  },
+
+  // Asia Results
+  'asia-tech': {
+    id: 'asia-tech',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Singapore',
+      country: 'Singapore',
+      description: 'Garden city-state with cutting-edge technology, incredible food, and tropical efficiency.',
+      highlights: ['Garden city design', 'Tech innovation hub', 'Incredible food scene', 'Multicultural', 'Tropical climate'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '24-32°C year-round',
+      vibe: 'Futuristic garden city'
+    }
+  },
+
+  'asia-traditional': {
+    id: 'asia-traditional',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
       name: 'Kyoto',
       country: 'Japan',
-      description: 'Ancient capital with thousands of temples, traditional culture, and seasonal beauty.',
-      highlights: ['2000+ temples', 'Traditional culture', 'Cherry blossoms', 'Tea ceremony', '1.5M population'],
+      description: 'Ancient capital with 2,000 temples, traditional culture, and seasonal beauty.',
+      highlights: ['2,000+ temples', 'Traditional culture', 'Cherry blossoms', 'Tea ceremony', 'Seasonal beauty'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '2-10°C (winter)',
-      vibe: 'Traditional Japanese culture'
+      temperature: '2-32°C',
+      vibe: 'Traditional Japanese elegance'
     }
   },
 
-  'seasonal-asia': {
-    id: 'seasonal-asia',
+  'asia-food': {
+    id: 'asia-food',
     type: 'result',
     question: 'Your perfect city is...',
     city: {
-      name: 'Sapporo',
+      name: 'Tokyo',
       country: 'Japan',
-      description: 'Snow festival capital with incredible winter experiences, hot springs, and fresh seafood.',
-      highlights: ['Snow Festival', 'Hot springs', 'Fresh seafood', 'Winter Olympics host', '1.9M population'],
-      image: 'https://images.pexels.com/photos/1730877/pexels-photo-1730877.jpeg',
-      temperature: '-7--1°C (winter)',
-      vibe: 'Winter wonderland'
+      description: 'Food paradise with more Michelin stars than any other city and incredible street food.',
+      highlights: ['Most Michelin stars globally', 'Incredible street food', 'Sushi capital', 'Ramen culture', 'Food innovation'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '1-30°C',
+      vibe: 'Culinary capital of the world'
+    }
+  },
+
+  'sea-affordable': {
+    id: 'sea-affordable',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Chiang Mai',
+      country: 'Thailand',
+      description: 'Digital nomad paradise with ancient temples, mountain views, and incredibly low costs.',
+      highlights: ['Very low cost of living', 'Digital nomad friendly', 'Ancient temples', 'Mountain setting', 'Great food'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '15-35°C',
+      vibe: 'Affordable mountain paradise'
+    }
+  },
+
+  'sea-beaches': {
+    id: 'sea-beaches',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Phuket',
+      country: 'Thailand',
+      description: 'Tropical island paradise with world-class beaches, diving, and Thai hospitality.',
+      highlights: ['World-class beaches', 'Diving and snorkeling', 'Thai hospitality', 'Island hopping', 'Tropical paradise'],
+      image: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg',
+      temperature: '24-33°C year-round',
+      vibe: 'Tropical beach paradise'
+    }
+  },
+
+  'sea-expat': {
+    id: 'sea-expat',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Kuala Lumpur',
+      country: 'Malaysia',
+      description: 'Modern multicultural metropolis with incredible food, shopping, and expat community.',
+      highlights: ['Multicultural metropolis', 'Incredible food scene', 'Modern infrastructure', 'Expat-friendly', 'Shopping paradise'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '23-33°C year-round',
+      vibe: 'Modern multicultural hub'
+    }
+  },
+
+  'oceania-surf': {
+    id: 'oceania-surf',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Gold Coast',
+      country: 'Australia',
+      description: 'Surfer\'s paradise with world-class beaches, theme parks, and laid-back lifestyle.',
+      highlights: ['World-class surfing', 'Beautiful beaches', 'Theme parks', 'Laid-back lifestyle', 'Year-round warmth'],
+      image: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg',
+      temperature: '11-28°C',
+      vibe: 'Surfer\'s paradise'
+    }
+  },
+
+  'oceania-city': {
+    id: 'oceania-city',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Melbourne',
+      country: 'Australia',
+      description: 'Cultural capital with incredible coffee, street art, and four seasons in one day.',
+      highlights: ['Coffee culture', 'Street art scene', 'Cultural events', 'Four seasons', 'Foodie paradise'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '6-26°C',
+      vibe: 'Cultural coffee capital'
+    }
+  },
+
+  'oceania-nature': {
+    id: 'oceania-nature',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Wellington',
+      country: 'New Zealand',
+      description: 'Windy city with harbor views, creative culture, and incredible nature access.',
+      highlights: ['Harbor setting', 'Creative culture', 'Nature access', 'Compact and walkable', 'Film industry'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '6-20°C',
+      vibe: 'Creative harbor city'
+    }
+  },
+
+  // Global climate results
+  'global-tropical': {
+    id: 'global-tropical',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Medellín',
+      country: 'Colombia',
+      description: 'City of eternal spring with perfect weather, innovation culture, and mountain setting.',
+      highlights: ['Perfect weather year-round', 'Innovation district', 'Mountain setting', 'Friendly locals', 'Growing expat community'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '18-28°C year-round',
+      vibe: 'City of eternal spring'
+    }
+  },
+
+  'global-temperate': {
+    id: 'global-temperate',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Lisbon',
+      country: 'Portugal',
+      description: 'European charm with Atlantic coast, perfect climate, and growing tech scene.',
+      highlights: ['Perfect mild climate', 'Atlantic coastline', 'Historic trams', 'Growing tech scene', 'Affordable Europe'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '8-28°C',
+      vibe: 'Atlantic European charm'
+    }
+  },
+
+  'global-continental': {
+    id: 'global-continental',
+    type: 'result',
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Prague',
+      country: 'Czech Republic',
+      description: 'Fairy-tale architecture with four distinct seasons, rich history, and affordable living.',
+      highlights: ['Fairy-tale architecture', 'Four distinct seasons', 'Rich history', 'Affordable living', 'Beer culture'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '-2-24°C',
+      vibe: 'Historic fairy-tale city'
     }
   }
 };

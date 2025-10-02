@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { DecisionNode } from '../types';
 import { decisionTree } from '../data/cities';
-import { ArrowRight, MapPin, RotateCcw, ArrowLeft, Home } from 'lucide-react';
+import { ArrowRight, MapPin, RotateCcw, ArrowLeft, Home, ChevronDown } from 'lucide-react';
 
 interface FlowChartProps {
   currentNodeId: string;
@@ -23,82 +23,37 @@ export const FlowChart: React.FC<FlowChartProps> = ({
   const canGoBack = path.length > 1;
   const parentNodeId = canGoBack ? path[path.length - 2] : null;
 
-  // Add emojis to options based on content
-  const addEmojiToOption = (text: string): string => {
-    const emojiMap: Record<string, string> = {
-      // Weather preferences
-      'mild': '🌤️',
-      'cool': '🌥️', 
-      'cold': '❄️',
-      'warm': '☀️',
-      'freezing': '🥶',
-      
-      // City sizes
-      'large': '🏙️',
-      'medium': '🏘️',
-      'small': '🏡',
-      'metropolitan': '🌆',
-      
-      // Activities
-      'beach': '🏖️',
-      'water sports': '🏄‍♂️',
-      'urban': '🚶‍♂️',
-      'parks': '🌳',
-      'desert': '🏜️',
-      'hiking': '🥾',
-      'mountains': '⛰️',
-      'skiing': '⛷️',
-      'snowboarding': '🏂',
-      'winter sports': '🎿',
-      
-      // Culture
-      'english': '🗣️',
-      'multicultural': '🌍',
-      'diversity': '🤝',
-      'community': '👥',
-      'tech': '💻',
-      'creative': '🎨',
-      'business': '💼',
-      'traditional': '🏛️',
-      'innovation': '🚀',
-      
-      // Geography
-      'coastal': '🌊',
-      'hills': '🏔️',
-      'countryside': '🌾',
-      'mediterranean': '🌅',
-      'scandinavian': '🌲',
-      'european': '🏰',
-      'alpine': '🏔️',
-      'arctic': '🐧',
-      'four seasons': '🍂',
-      
-      // Lifestyle
-      'affordable': '💰',
-      'nature': '🌿',
-      'food': '🍽️',
-      'nightlife': '🌃',
-      'cozy': '☕',
-      'outdoor': '🏕️'
-    };
+  // Show path visualization
+  const renderPathVisualization = () => {
+    if (path.length <= 1) return null;
 
-    let result = text;
-    Object.entries(emojiMap).forEach(([keyword, emoji]) => {
-      if (text.toLowerCase().includes(keyword)) {
-        result = `${emoji} ${text}`;
-        return;
-      }
-    });
-    
-    // Default emojis if no match found
-    if (result === text) {
-      if (text.includes('°C') || text.includes('temperature')) result = `🌡️ ${text}`;
-      else if (text.includes('people') || text.includes('population')) result = `👥 ${text}`;
-      else if (text.includes('timezone')) result = `🕐 ${text}`;
-      else result = `✨ ${text}`;
-    }
-    
-    return result;
+    return (
+      <div className="mb-8">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+          <h4 className="text-sm font-semibold text-gray-600 mb-3">Your Journey So Far:</h4>
+          <div className="flex flex-wrap items-center gap-2">
+            {path.slice(0, -1).map((nodeId, index) => {
+              const node = decisionTree[nodeId];
+              if (!node) return null;
+              
+              return (
+                <React.Fragment key={nodeId}>
+                  <button
+                    onClick={() => onNavigate(nodeId)}
+                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full text-sm transition-colors"
+                  >
+                    {node.question.replace(/[🌍🌡️🏙️🎯⛷️🗣️🏖️❄️🌏🏮🌴🌊🌤️]/g, '').trim()}
+                  </button>
+                  {index < path.length - 2 && (
+                    <ArrowRight className="w-4 h-4 text-gray-400" />
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   if (!currentNode) return null;
@@ -232,6 +187,9 @@ export const FlowChart: React.FC<FlowChartProps> = ({
       {/* Main Content - Centered Question and Options */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="max-w-4xl w-full">
+          {/* Path Visualization */}
+          {renderPathVisualization()}
+
           {/* Question Box */}
           <div className="text-center mb-12">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8 shadow-2xl">
@@ -243,8 +201,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
           {/* Arrow pointing down */}
           <div className="flex justify-center mb-8">
             <div className="flex flex-col items-center">
-              <div className="w-1 h-12 bg-gradient-to-b from-purple-600 to-blue-600 rounded-full"></div>
-              <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-blue-600"></div>
+              <ChevronDown className="w-8 h-8 text-blue-600 animate-bounce" />
             </div>
           </div>
 
@@ -263,7 +220,7 @@ export const FlowChart: React.FC<FlowChartProps> = ({
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="text-lg font-semibold text-gray-800 group-hover:text-blue-700 mb-1">
-                          {addEmojiToOption(option.text)}
+                          {option.text}
                         </div>
                         {isResult && targetNode?.city && (
                           <div className="text-sm text-gray-500 group-hover:text-blue-600">
