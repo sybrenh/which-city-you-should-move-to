@@ -434,20 +434,26 @@ export const decisionTree: Record<string, DecisionNode> = {
     }
   },
 
-  'americas-mild-culture-history': {
-    id: 'americas-mild-culture-history',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Philadelphia',
-      country: 'Pennsylvania, USA',
-    question: '❄️ What draws you to cold climates?',
-      highlights: ['American history', 'Incredible food scene', 'Affordable living', 'Walkable neighborhoods', 'Cultural institutions'],
-      { text: '🎿 Winter sports - Skiing, snowboarding, ice hockey', nextId: 'americas-cold-sports' },
-      { text: '☕ Cozy culture - Fireplaces, hot drinks, indoor activities', nextId: 'americas-cold-cozy' },
-      { text: '🏔️ Mountain lifestyle - Alpine living and scenery', nextId: 'americas-cold-mountain' }
-    }
-  },
+'americas-mild-culture-history': {
+id: 'americas-mild-culture-history',
+type: 'result',
+question: 'Your perfect city is...',
+city: {
+    name: 'Philadelphia',
+    country: 'Pennsylvania, USA',
+    description: 'Historic city with rich culture, great food, and walkable neighborhoods.',
+    highlights: [
+    'American history',
+    'Incredible food scene',
+    'Affordable living',
+    'Walkable neighborhoods',
+    'Cultural institutions'
+    ],
+    image: 'https://images.pexels.com/photos/358259/pexels-photo-358259.jpeg',
+    temperature: '-2-30°C',
+    vibe: 'Historic and vibrant'
+}
+},
 
   'americas-cold-sports': {
     id: 'americas-cold-sports',
@@ -561,36 +567,32 @@ export const decisionTree: Record<string, DecisionNode> = {
     }
   },
 
-  'americas-cold-mountain': {
-    id: 'americas-cold-mountain',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Banff',
-      country: 'Alberta, Canada',
-      description: 'Mountain town paradise in the Canadian Rockies with world-class outdoor recreation.',
-      highlights: ['Canadian Rockies', 'World-class skiing', 'Hot springs', 'Wildlife viewing', 'Mountain town charm'],
-      image: 'https://images.pexels.com/photos/1730877/pexels-photo-1730877.jpeg',
-      temperature: '-15-22°C',
-      vibe: 'Rocky Mountain paradise'
-      { text: '🏛️ Western Europe - Rich history and established culture', nextId: 'western-europe' },
-      { text: '🌅 Mediterranean - Coastal lifestyle and warm climate', nextId: 'mediterranean' },
-      { text: '🌲 Northern Europe - Design, nature, and quality of life', nextId: 'northern-europe' },
-      { text: '🦁 Africa - Adventure, growth, and unique experiences', nextId: 'africa' }
-  'europe-english': {
-    id: 'europe-english',
-    type: 'result',
-    question: '🌍 Which region and lifestyle appeals to you most?',
-    city: {
-      name: 'Edinburgh',
-    question: '🗣️ What\'s your language and cultural preference?',
-      description: 'Historic capital with castle views, festival culture, and Scottish charm.',
-      { text: '🇬🇧 English-speaking - Familiar language and culture', nextId: 'europe-english' },
-      { text: '🇩🇪 Germanic culture - Efficiency and precision', nextId: 'europe-german' },
-      { text: '🇫🇷 Romance culture - Art, cuisine, and lifestyle', nextId: 'europe-french' }
-      vibe: 'Historic cultural capital'
-    }
-  },
+'americas-cold-mountain': {
+  id: 'americas-cold-mountain',
+  type: 'result',
+  question: 'Your perfect city is...',
+  city: {
+    name: 'Banff',
+    country: 'Alberta, Canada',
+    description: 'Mountain town paradise in the Canadian Rockies with world-class outdoor recreation.',
+    highlights: ['Canadian Rockies', 'World-class skiing', 'Hot springs', 'Wildlife viewing', 'Mountain town charm'],
+    image: 'https://images.pexels.com/photos/1730877/pexels-photo-1730877.jpeg',
+    temperature: '-15-22°C',
+    vibe: 'Rocky Mountain paradise'
+  }
+},
+
+'europe-region': {
+  id: 'europe-region',
+  type: 'question',
+  question: '🏛️ Which region and lifestyle appeals to you most?',
+  options: [
+    { text: '🏛️ Western Europe - Rich history and established culture', nextId: 'western-europe' },
+    { text: '🌅 Mediterranean - Coastal lifestyle and warm climate', nextId: 'mediterranean' },
+    { text: '🌲 Northern Europe - Design, nature, and quality of life', nextId: 'northern-europe' },
+    { text: '🦁 Africa - Adventure, growth, and unique experiences', nextId: 'africa' }
+  ]
+},
   // Add more detailed paths for each European region...
   // (I'll add a few key ones to show the pattern)
 
@@ -603,67 +605,6 @@ export const decisionTree: Record<string, DecisionNode> = {
       { text: '🇮🇪 Irish culture - Dublin\'s pubs and literature', nextId: 'result-dublin' },
       { text: '🇬🇧 London cosmopolitan - Global city experience', nextId: 'result-london' }
     ]
-  },
-
-  // Results for missing cities
-  'result-austin': {
-    id: 'result-austin',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Austin',
-      country: 'Texas, USA',
-      description: 'Keep it weird in this vibrant city known for music, food trucks, and tech innovation.',
-      highlights: ['Live music capital', 'Food truck culture', 'Tech scene', 'No state income tax', 'Outdoor festivals'],
-      image: 'https://images.pexels.com/photos/2469122/pexels-photo-2469122.jpeg',
-      temperature: '8-28°C',
-      vibe: 'Quirky music city'
-    }
-  },
-
-  'result-los-angeles': {
-    id: 'result-los-angeles',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Los Angeles',
-      country: 'California, USA',
-      description: 'The entertainment capital with endless sunshine, diverse neighborhoods, and a thriving creative scene.',
-      highlights: ['Entertainment industry hub', 'Year-round sunshine', 'Beach access', 'Diverse food scene', 'Creative communities'],
-      image: 'https://images.pexels.com/photos/2695679/pexels-photo-2695679.jpeg',
-      temperature: '15-25°C year-round',
-      vibe: 'Creative sunshine metropolis'
-    }
-  },
-
-  'result-miami': {
-    id: 'result-miami',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'Miami',
-      country: 'Florida, USA',
-      description: 'International gateway with Art Deco architecture, vibrant nightlife, and Latin American culture.',
-      highlights: ['International business hub', 'Art Deco architecture', 'Vibrant nightlife', 'Latin culture', 'Beautiful beaches'],
-      image: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg',
-      temperature: '18-31°C year-round',
-      vibe: 'International tropical metropolis'
-    }
-  },
-
-  'result-san-francisco': {
-    id: 'result-san-francisco',
-    type: 'result',
-    question: 'Your perfect city is...',
-    city: {
-      name: 'San Francisco',
-      country: 'California, USA',
-      description: 'Tech capital with iconic hills, progressive culture, and incredible food scene.',
-      highlights: ['Tech industry center', 'Iconic architecture', 'Progressive culture', 'World-class food', 'Mild climate'],
-      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-      temperature: '10-20°C year-round',
-      vibe: 'Tech innovation hub'
-    }
   },
 
   'result-edinburgh': {
@@ -735,16 +676,16 @@ export const decisionTree: Record<string, DecisionNode> = {
       country: 'France',
       description: 'Gastronomic capital with Renaissance architecture and French savoir-vivre.',
       highlights: ['Culinary capital', 'Renaissance architecture', 'Silk industry heritage', 'Rhône and Saône rivers', 'French culture'],
-      { text: '🌊 Beach and island life - Relaxed coastal living', nextId: 'med-islands' },
-      { text: '🍷 Food and wine culture - Culinary paradise', nextId: 'med-food' },
-      { text: '🏛️ Ancient history and ruins - Cultural heritage', nextId: 'med-history' }
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg', // Placeholder image
+      temperature: '0-27°C',
+      vibe: 'French gastronomic capital'
     }
   },
 
   'med-islands': {
     id: 'med-islands',
     type: 'result',
-    question: '🏖️ What aspect of Mediterranean life appeals to you most?',
+    question: 'Your perfect city is...',
     city: {
       name: 'Palma',
       country: 'Mallorca, Spain',
@@ -780,16 +721,16 @@ export const decisionTree: Record<string, DecisionNode> = {
       country: 'Greece',
       description: 'Cradle of democracy with ancient ruins, vibrant neighborhoods, and Greek island access.',
       highlights: ['Ancient Acropolis', 'Birthplace of democracy', 'Greek island access', 'Vibrant neighborhoods', 'Mediterranean climate'],
-      { text: '🏠 Hygge and design culture - Cozy minimalist living', nextId: 'nordic-hygge' },
-      { text: '🌌 Northern lights and nature - Arctic wilderness', nextId: 'nordic-nature' },
-      { text: '💡 Innovation and tech scene - Progressive society', nextId: 'nordic-tech' }
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg', // Placeholder image
+      temperature: '6-33°C',
+      vibe: 'Ancient historic cradle'
     }
   },
 
   'nordic-hygge': {
     id: 'nordic-hygge',
     type: 'result',
-    question: '❄️ What Nordic lifestyle element attracts you most?',
+    question: 'Your perfect city is...',
     city: {
       name: 'Copenhagen',
       country: 'Denmark',
@@ -825,16 +766,16 @@ export const decisionTree: Record<string, DecisionNode> = {
       country: 'Sweden',
       description: 'Venice of the North with startup culture, design innovation, and archipelago beauty.',
       highlights: ['Startup ecosystem', 'Design innovation', 'Archipelago setting', 'Work-life balance', 'Tech scene'],
-      { text: '🏙️ Modern cosmopolitan city - Urban sophistication', nextId: 'africa-modern' },
-      { text: '🦁 Safari and wildlife access - Nature and conservation', nextId: 'africa-wildlife' },
-      { text: '🏖️ Coastal and beach culture - Ocean lifestyle', nextId: 'africa-coastal' }
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg', // Placeholder image
+      temperature: '-3-22°C',
+      vibe: 'Innovative archipelago capital'
     }
   },
 
   'africa-modern': {
     id: 'africa-modern',
     type: 'result',
-    question: '🌍 What type of African experience appeals to you?',
+    question: 'Your perfect city is...',
     city: {
       name: 'Cape Town',
       country: 'South Africa',
@@ -876,11 +817,68 @@ export const decisionTree: Record<string, DecisionNode> = {
     }
   },
 
+  // Asia & Oceania Questions
+  'asia-pacific': {
+    id: 'asia-pacific',
+    type: 'question',
+    question: '🌏 Which Asia-Pacific region and culture interests you most?',
+    options: [
+      { text: '🏮 East Asia - Modern technology meets ancient tradition', nextId: 'east-asia' },
+      { text: '🕌 Southeast Asia - Tropical paradise with diverse cultures', nextId: 'southeast-asia' },
+      { text: '🦘 Oceania - Outdoor lifestyle and relaxed living', nextId: 'oceania' },
+      { text: '🏔️ South Asia - Spiritual culture and mountain landscapes', nextId: 'south-asia' }
+    ]
+  },
+
+  'east-asia': {
+    id: 'east-asia',
+    type: 'question',
+    question: '🏙️ What aspect of East Asian culture appeals to you most?',
+    options: [
+      { text: '🤖 Ultra-modern tech cities - Innovation and efficiency', nextId: 'asia-tech' },
+      { text: '🏯 Traditional culture & temples - Ancient wisdom and beauty', nextId: 'asia-traditional' },
+      { text: '🍜 Food culture paradise - Culinary excellence and variety', nextId: 'asia-food' }
+    ]
+  },
+
+  'southeast-asia': {
+    id: 'southeast-asia',
+    type: 'question',
+    question: '🌴 What draws you to Southeast Asia?',
+    options: [
+      { text: '💰 Low cost of living - Affordable paradise', nextId: 'sea-affordable' },
+      { text: '🏖️ Tropical beach lifestyle - Island hopping and diving', nextId: 'sea-beaches' },
+      { text: '🌆 Modern expat-friendly cities - Urban convenience', nextId: 'sea-expat' }
+    ]
+  },
+
+  'oceania': {
+    id: 'oceania',
+    type: 'question',
+    question: '🌊 What aspect of Oceania lifestyle appeals to you?',
+    options: [
+      { text: '🏄‍♂️ Surf and beach culture - Coastal living and water sports', nextId: 'oceania-surf' },
+      { text: '🏙️ Cosmopolitan city life - Urban sophistication down under', nextId: 'oceania-city' },
+      { text: '🌿 Nature and outdoor adventures - Unique wildlife and landscapes', nextId: 'oceania-nature' }
+    ]
+  },
+
+  'south-asia': {
+    id: 'south-asia',
+    type: 'question',
+    question: '🏔️ What draws you to South Asia?',
+    options: [
+      { text: '🏔️ Mountain adventures - Himalayas and trekking', nextId: 'south-asia-mountains' },
+      { text: '🕉️ Spiritual culture - Yoga, meditation, and temples', nextId: 'south-asia-spiritual' },
+      { text: '🌆 Modern cities - Tech hubs and urban growth', nextId: 'south-asia-modern' }
+    ]
+  },
+
   // Asia Results
   'asia-tech': {
     id: 'asia-tech',
     type: 'result',
-    question: '🌏 Which Asia-Pacific region and culture interests you most?',
+    question: 'Your perfect city is...',
     city: {
       name: 'Singapore',
       country: 'Singapore',
@@ -960,55 +958,56 @@ export const decisionTree: Record<string, DecisionNode> = {
       name: 'Kuala Lumpur',
       country: 'Malaysia',
       description: 'Modern multicultural metropolis with incredible food, shopping, and expat community.',
-      { text: '🏮 East Asia - Modern technology meets ancient tradition', nextId: 'east-asia' },
-      { text: '🕌 Southeast Asia - Tropical paradise with diverse cultures', nextId: 'southeast-asia' },
-      { text: '🦘 Oceania - Outdoor lifestyle and relaxed living', nextId: 'oceania' },
-      { text: '🏔️ South Asia - Spiritual culture and mountain landscapes', nextId: 'south-asia' }
+      highlights: ['Petronas Towers', 'Incredible street food', 'Expat friendly', 'Multicultural', 'Shopping paradise'],
+      image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
+      temperature: '23-33°C year-round',
+      vibe: 'Modern multicultural metropolis'
     }
   },
 
   'oceania-surf': {
     id: 'oceania-surf',
     type: 'result',
-    question: '🏙️ What aspect of East Asian culture appeals to you most?',
+    question: 'Your perfect city is...',
     city: {
-      { text: '🤖 Ultra-modern tech cities - Innovation and efficiency', nextId: 'asia-tech' },
-      { text: '🏯 Traditional culture & temples - Ancient wisdom and beauty', nextId: 'asia-traditional' },
-      { text: '🍜 Food culture paradise - Culinary excellence and variety', nextId: 'asia-food' }
+      name: 'Gold Coast',
+      country: 'Australia',
+      description: 'Sun-drenched city famous for its surfing beaches, theme parks, and vibrant nightlife.',
       highlights: ['World-class surfing', 'Beautiful beaches', 'Theme parks', 'Laid-back lifestyle', 'Year-round warmth'],
       image: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg',
       temperature: '11-28°C',
       vibe: 'Surfer\'s paradise'
     }
   },
-    question: '🌴 What draws you to Southeast Asia?',
+
   'oceania-city': {
-      { text: '💰 Low cost of living - Affordable paradise', nextId: 'sea-affordable' },
-      { text: '🏖️ Tropical beach lifestyle - Island hopping and diving', nextId: 'sea-beaches' },
-      { text: '🌆 Modern expat-friendly cities - Urban convenience', nextId: 'sea-expat' }
+    id: 'oceania-city',
+    type: 'result',
+    question: 'Your perfect city is...',
     city: {
       name: 'Melbourne',
       country: 'Australia',
       description: 'Cultural capital with incredible coffee, street art, and four seasons in one day.',
       highlights: ['Coffee culture', 'Street art scene', 'Cultural events', 'Four seasons', 'Foodie paradise'],
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
-    question: '🌊 What aspect of Oceania lifestyle appeals to you?',
+      temperature: '6-26°C',
       vibe: 'Cultural coffee capital'
-      { text: '🏄‍♂️ Surf and beach culture - Coastal living and water sports', nextId: 'oceania-surf' },
-      { text: '🏙️ Cosmopolitan city life - Urban sophistication down under', nextId: 'oceania-city' },
-      { text: '🌿 Nature and outdoor adventures - Unique wildlife and landscapes', nextId: 'oceania-nature' }
+    }
+  },
+
   'oceania-nature': {
     id: 'oceania-nature',
     type: 'result',
-  'south-asia': {
-    id: 'south-asia',
-    type: 'question',
-    question: '🏔️ What draws you to South Asia?',
-    options: [
-      { text: '🏔️ Mountain adventures - Himalayas and trekking', nextId: 'south-asia-mountains' },
-      { text: '🕉️ Spiritual culture - Yoga, meditation, and temples', nextId: 'south-asia-spiritual' },
-      { text: '🌆 Modern cities - Tech hubs and urban growth', nextId: 'south-asia-modern' }
-    ]
+    question: 'Your perfect city is...',
+    city: {
+      name: 'Queenstown',
+      country: 'New Zealand',
+      description: 'Adventure capital of the world, surrounded by majestic mountains and a crystal clear lake.',
+      highlights: ['Adventure sports', 'Stunning scenery', 'Hiking and skiing', 'Lord of the Rings locations', 'Outdoor lifestyle'],
+      image: 'https://images.pexels.com/photos/2191013/pexels-photo-2191013.jpeg',
+      temperature: '0-22°C',
+      vibe: 'Adventure capital'
+    }
   },
 
   'south-asia-mountains': {
@@ -1053,6 +1052,9 @@ export const decisionTree: Record<string, DecisionNode> = {
       image: 'https://images.pexels.com/photos/1519088/pexels-photo-1519088.jpeg',
       temperature: '15-28°C',
       vibe: 'Tech innovation garden city'
+    }
+  },
+
   'global-tropical': {
     id: 'global-tropical',
     type: 'question',
@@ -1093,6 +1095,7 @@ export const decisionTree: Record<string, DecisionNode> = {
       vibe: 'Eco-paradise pura vida'
     }
   },
+
   'global-continental': {
     id: 'global-continental',
     type: 'result',
@@ -1107,4 +1110,4 @@ export const decisionTree: Record<string, DecisionNode> = {
       vibe: 'Historic fairy-tale city'
     }
   }
-};
+}
